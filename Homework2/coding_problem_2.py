@@ -26,32 +26,32 @@ today_month = today.month
 today_day = today.day
 today_year = today.year
 
-# initiate and continue to ask for date one at a time until -1 is given
-# as dates are entered append them to list to save them
-input_date = input("Enter a Date: ")
-dates = []
-while input_date != '-1':
-    dates.append(input_date)
-    input_date = input("Enter a Date: ")
+
+# open and read through the file
+# create list from the data
+my_file = open("inputData.txt", "r")
+data = my_file.read()
+dates = data.split("\n")
 
 # iterate through dates in list, if date meets format requirements (have a ',') then append it to a new list.
-# use find() method
+# use find().
 new_dates = []
-for n in dates:
-    form_date = n.find(',')
-    if form_date != -1:
-        new_dates.append(n)
+for i in dates:
+    find_comma = i.find(',')
+    if find_comma != -1:
+        new_dates.append(i)
 
-# iterate through dates in correct format list and split parts into month,day, year.
-# ignores any month that isn't a key from the dictionary(wrong format)
-# delete the ',' in day by replacing it with a blank space.
-# make sure date is before the current date
-# reformat and print date
-for i in new_dates:
-    split_date = i.split()
+# iterate through dates in new_dates list and split info into parts.
+# ignores any month that isn't a key from the dictionary(wrong format),cant be called.
+# delete the ',' in month by replacing it with a blank space.
+# make sure date is before the current date.
+# reformat and print date.
+for x in new_dates:
+    split_date = x.split()
     month = months[split_date[0]]
     day = split_date[1].replace(',', '')
     year = split_date[2]
+
     if int(year) > today_year:
         break
     elif int(year) == today_year and int(month) > today_month:
